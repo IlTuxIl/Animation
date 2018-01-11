@@ -214,7 +214,7 @@ int Viewer::init()
     //m_tissu_texture = read_texture(0, "data/papillon.png");
     //m_tissu_texture = read_texture(0, "data/textures/tissu1.png");
    // m_tissu_texture = read_texture(0, "data/textures/tissu2.jpg");
-    m_tissu_texture = read_texture(0, smart_path("data/textures/tissu2.jpg"));
+    m_tissu_texture = read_texture(0, smart_path("data/textures/tissu1.bmp"));
 
     // Appel des procedures d initialisation des objets de la scene
     // Pour les objets non simules

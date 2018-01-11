@@ -47,8 +47,13 @@ using namespace std;
 void ObjetSimuleRigidBody::CalculMasse()
 {
     _Mass = 0.f;
-    for(int i = 0; i < _VISize; ++i)
+    _BaryCentre = Vector(0,0,0);
+
+    for(int i = 0; i < P.size(); ++i) {
         _Mass += M[i];
+        _BaryCentre = _BaryCentre + (P[i] * M[i]);
+    }
+    _BaryCentre = _BaryCentre / _Mass;
 }
 
 
@@ -56,44 +61,52 @@ void ObjetSimuleRigidBody::CalculMasse()
  * Calcul du tenseur d inertie de l objet rigide - - partie constante Ibody
  * et remplissage tableau roi (position particules dans repere objet)
  */
-void ObjetSimuleRigidBody::CalculIBody()
-{
-    
+void ObjetSimuleRigidBody::CalculIBody() {
+    _ROi.reserve(P.size());
+    _Ibody = Matrix();
+    for (int i = 0; i < P.size(); ++i){
+        _ROi.push_back(P[i] - _BaryCentre);
+        _Ibody += M[i] * (Matrix::UnitMatrix() * dot(_ROi[i], _ROi[i]) - MultiplyTransposedAndOriginal(_ROi[i]));
+    }
+    _IbodyInv = _Ibody.InverseConst();
+//    std::cout << _BaryCentre << std::endl;
+//    std::cout << _Ibody << std::endl;
 }
 
 
 /*
- * Calcul de l etat de l objet rigide.
+ * TODO Calcul de l etat de l objet rigide.
  */
-void ObjetSimuleRigidBody::CalculStateX()
-{
-    
-    
+void ObjetSimuleRigidBody::CalculStateX() {
+    _InertieTenseurInv = _Rotation * _IbodyInv * _Rotation.TransposeConst();
+//    _MomentCinetique = _InertieTenseurInv * _VitesseAngulaire;
+    _VitesseAngulaire = _InertieTenseurInv * _MomentCinetique;
 }
 
-
-
 /*
- * Calcul de la derivee de l etat : d/dt X(t).
+ * TODO Calcul de la derivee de l etat : d/dt X(t).
  */
 void ObjetSimuleRigidBody::CalculDeriveeStateX(Vector gravite)
 {
-    
+    _Vitesse = _QuantiteMouvement * _Mass;
+    _RotationDerivee = StarMatrix(_VitesseAngulaire) * _Rotation;
+//    _Force =
+//    _Torque =
 }
 
 
 /**
- * Schema integration pour obtenir X(t+dt) en fct de X(t) et d/dt X(t)
+ * TODO Schema integration pour obtenir X(t+dt) en fct de X(t) et d/dt X(t)
  */
 void ObjetSimuleRigidBody::Solve(float visco)
 {
-    
+
 }//void
 
 
 
 /**
- * Gestion des collisions avec le sol - plan (x,y,z).
+ * TODO Gestion des collisions avec le sol - plan (x,y,z).
  */
 void ObjetSimuleRigidBody::CollisionPlan(float x, float y, float z){
 

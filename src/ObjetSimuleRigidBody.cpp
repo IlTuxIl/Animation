@@ -103,7 +103,7 @@ void ObjetSimuleRigidBody::initMeshObjet()
 
     for(unsigned int i = 0; i < _VISize; i++){
         m_ObjetSimule.normal(_vectNormals[_VIndices[i]]);
-        //m_ObjetSimule.texcoord(_vectTexture[_VIndices[i]].u, _vectTexture[_VIndices[i]].v);
+//        m_ObjetSimule.texcoord(_vectTexture[_VIndices[i]].u, _vectTexture[_VIndices[i]].v);
         m_ObjetSimule.vertex(P[_VIndices[i]].x, P[_VIndices[i]].y, P[_VIndices[i]].z);
     }
 

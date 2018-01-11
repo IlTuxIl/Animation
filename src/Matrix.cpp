@@ -332,6 +332,13 @@ Matrix operator* (const Matrix & matrix, float factor)
     return result;
 }
 
+Matrix operator* (float factor, const Matrix & matrix)
+{
+    Matrix result(matrix);
+    result *= factor;
+
+    return result;
+}
 
 /*
  * Renvoi la multiplication de deux matrices.

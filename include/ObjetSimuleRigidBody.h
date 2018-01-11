@@ -118,14 +118,14 @@ public:
     /// Vitesse angulaire w(t)
     Vector _VitesseAngulaire;
     
-    // Derivee de l etat du systeme : x'(t) = d/dt X(t)
+    // Derivee de l etat du systeme : X'(t) = d/dt X(t)
     // - d/dt x(t) = v(t) - vitesse du baycentre
     // - d/dt R(t) = r'(t) = w(t) x R(t)
     // - d/dt P(t) = F(t) - les forces
     // - d/dt L(t) = moment de la force (torque) = sum_i (ri(t) - x(t)) x Fi(t)
     
 
-    /// x't) = vitesse du centre de masse
+    /// x'(t) = vitesse du centre de masse
     Vector _Vitesse;
     
     /// Derivee de la rotation

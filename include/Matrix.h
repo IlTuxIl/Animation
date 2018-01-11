@@ -93,6 +93,7 @@ public:
 };
 
 Matrix operator* (const Matrix & matrix, float factor);
+Matrix operator* (float factor, const Matrix & matrix);
 Matrix operator* (const Matrix & matrixA, const Matrix & matrixB);
 Vector operator* (const Matrix & matrix, const Vector & coord);
 Matrix operator+ (const Matrix & matrixA, const Matrix & matrixB);

@@ -449,7 +449,7 @@ void ObjetSimuleMSS::Simulation(Vector gravite, float viscosite, int Tps)
     CollisionPlan(-10, -10, -10);
     
     // Affichage des positions
-     AffichagePos(Tps);
+//     AffichagePos(Tps);
     
     /** Modification des normales **/
     setNormals();
