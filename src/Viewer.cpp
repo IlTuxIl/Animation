@@ -208,7 +208,13 @@ int Viewer::render( )
             
             // Transformation geometrique appliquee a l objet
          //  gl.model(T * Scale(0.3, 0.3, 0.3));
-            gl.model(Identity());
+
+            float* val = ((ObjetSimuleRigidBody*)(*e))->_Rotation.m_Values;
+            Transform rot(val[0], val[1], val[2], 0.0,
+                          val[3], val[4], val[5], 0.0,
+                          val[6], val[7], val[8], 0.0);
+
+            gl.model(Translation(((ObjetSimuleRigidBody*)(*e))->_Position) * rot);
                 
             // Affichage du Mesh de l objet du graphe de scene
             gl.draw((*e)->m_ObjetSimule);

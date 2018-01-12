@@ -79,7 +79,6 @@ void ObjetSimuleRigidBody::CalculIBody() {
  */
 void ObjetSimuleRigidBody::CalculStateX() {
     _InertieTenseurInv = _Rotation * _IbodyInv * _Rotation.TransposeConst();
-//    _MomentCinetique = _InertieTenseurInv * _VitesseAngulaire;
     _VitesseAngulaire = _InertieTenseurInv * _MomentCinetique;
 }
 
@@ -88,10 +87,14 @@ void ObjetSimuleRigidBody::CalculStateX() {
  */
 void ObjetSimuleRigidBody::CalculDeriveeStateX(Vector gravite)
 {
-    _Vitesse = _QuantiteMouvement * _Mass;
+    _Vitesse = _QuantiteMouvement / _Mass;
     _RotationDerivee = StarMatrix(_VitesseAngulaire) * _Rotation;
-//    _Force =
-//    _Torque =
+    _Force = gravite;
+
+    _Torque = Vector();
+    for(int i = 0; i < P.size(); ++i)
+        _Torque = _Torque + cross((P[i] - _BaryCentre), gravite);
+
 }
 
 
@@ -100,7 +103,10 @@ void ObjetSimuleRigidBody::CalculDeriveeStateX(Vector gravite)
  */
 void ObjetSimuleRigidBody::Solve(float visco)
 {
-
+    _Position = _Position + _Vitesse * visco;
+    _Rotation = _Rotation * _RotationDerivee;
+    _QuantiteMouvement = _QuantiteMouvement + _Force;
+    _MomentCinetique = _MomentCinetique + _Torque;
 }//void
 
 
@@ -109,6 +115,7 @@ void ObjetSimuleRigidBody::Solve(float visco)
  * TODO Gestion des collisions avec le sol - plan (x,y,z).
  */
 void ObjetSimuleRigidBody::CollisionPlan(float x, float y, float z){
-
+    if (_Position.y < y)
+        _QuantiteMouvement = -_QuantiteMouvement / 2;
 }// void
 

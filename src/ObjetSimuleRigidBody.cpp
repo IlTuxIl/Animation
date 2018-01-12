@@ -117,7 +117,11 @@ void ObjetSimuleRigidBody::initMeshObjet()
 void ObjetSimuleRigidBody::updateVertex()
 {
     //std::cout << "ObjetSimuleRigidBody::updateVertex() ..." << std::endl;
-    
+
+    for(unsigned int i = 0; i < _VISize; i++){
+        m_ObjetSimule.vertex(i, P[_VIndices[i]].x + _Position.x, P[_VIndices[i]].y + _Position.y, P[_VIndices[i]].z + _Position.z);
+    }
+
     // Cas ou on utilise le tableau des positions P pour faire la mise a jour du Mesh
     // Sinon rien dans cette fonction, et translation du Mesh initial en fonction de _Position
     
@@ -148,9 +152,9 @@ void ObjetSimuleRigidBody::Simulation(Vector gravite, float viscosite, int Tps)
     /* ! Gestion des collisions avec plan (x,y,z)  */
     // Reponse : reste a la position du plan - arret des vitesses
     // Penser au Translate de l objet dans la scene pour trouver plan coherent
-  //  CollisionPlan(0, 0, 0);
+    CollisionPlan(0, 0, 0);
     
     // Affichage des positions
-    //cout << " Position du centre de masse de l objet rigide :" << _Position << endl;
+//    cout << " Position du centre de masse de l objet rigide :" << _Position << endl;
     
 }

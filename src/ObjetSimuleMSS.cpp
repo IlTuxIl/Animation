@@ -413,10 +413,7 @@ void ObjetSimuleMSS::initMeshObjet()
 void ObjetSimuleMSS::updateVertex()
 {
     //std::cout << "ObjetSimuleMSS::updateVertex() ..." << std::endl;
-    for(unsigned int i = 0; i < _VISize; i++){
-        m_ObjetSimule.vertex(i, P[_VIndices[i]].x, P[_VIndices[i]].y, P[_VIndices[i]].z);
-    }
-      
+
 }
 
 

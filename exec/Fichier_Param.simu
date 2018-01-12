@@ -6,8 +6,8 @@ Gz=0;
 
 viscosite=0.995;
 
-objet1=mss;
+#objet1=mss;
 
-#objet1=rigid;
+objet1=rigid;
 
 #objet1=particule;
